@@ -31,18 +31,37 @@ def run():
         choice = 'tracks'
 
     if choice == 'tracks':
+        want_analysis = input("Include audio analysis (y,n)?  ")
         tracks = client.get_top_tracks()
         print()
         print('The following are your top tracks, starting with the most played')
+        print()
         for track in tracks:
-            print(f" '{track['name']}' by {track['artists'][0]['name']} ")
+            print(f"'{track['name']}' by {track['artists'][0]['name']} ")
+            if (want_analysis == 'y'):
+                features = client.get_analysis(track["id"])
+                print(f"energy: {features['energy']}")
+                print(f"valence: {features['valence']}")
+                print(f"mode: {features['mode']}")
+                print(f"danceability: {features['danceability']}")
+                print(f"tempo: {features['tempo']}")
+                print()
+
+
 
     if choice == 'artists':
+        want_details = input("Include audio analysis (y,n)?  ")
         artists = client.get_top_artists()
         print()
         print('The following are your top artists, starting with the most played')
+        print()
         for artist in artists:
-            print(f" {artist['name']} ")
+            print(f"{artist['name']} ")
+            if (want_details == 'y'):
+                details = client.get_artist_details(artist["id"])
+                print(f"main genre: {details['genres'][0]}")
+                print(f"popularity: {details['popularity']}")
+                print()
 
 
     # # testing

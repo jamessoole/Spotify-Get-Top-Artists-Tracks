@@ -92,6 +92,40 @@ class SpotifyClient(object):
 
 
 
+    def get_analysis(self, track_id):
+        url = f'https://api.spotify.com/v1/audio-features/{track_id}'
+        response = requests.get(
+            url,
+            headers = {
+                "Content-Type" : "application.json", 
+                "Authorization" : f"Bearer {self.api_key}"
+            }
+        )
+        response_json = response.json()
+        if ('error' in response_json):
+            print(f"There has been an Error: {response_json['error']}")
+
+        return response_json
+
+
+
+
+    def get_artist_details(self, artist_id):
+        url = f'https://api.spotify.com/v1/artists/{artist_id}'
+        response = requests.get(
+            url,
+            headers = {
+                "Content-Type" : "application.json", 
+                "Authorization" : f"Bearer {self.api_key}"
+            }
+        )
+        response_json = response.json()
+        if ('error' in response_json):
+            print(f"There has been an Error: {response_json['error']}")
+
+        return response_json
+
+
 
 
     # UNUSED
